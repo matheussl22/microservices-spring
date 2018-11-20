@@ -1,0 +1,5 @@
+microservices/controller/VendaController.class
+microservices/domain/venda/VendaService.class
+microservices/VendaServer.class
+microservices/client/CarroService.class
+microservices/domain/venda/VendaServiceImpl.class

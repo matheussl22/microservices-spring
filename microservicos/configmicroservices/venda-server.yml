@@ -1,0 +1,10 @@
+server:
+  port: ${PORT:8084}
+
+---
+spring:
+  profiles: localhost
+
+---
+spring:
+  profiles: docker

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  server:
+    enableSelfPreservation: true
+    peerEurekaNodesUpdateIntervalMs: 60000
+
+---
+spring:
+  profiles: localhost
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: http://config:8888

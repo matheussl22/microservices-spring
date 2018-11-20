@@ -1,0 +1,4 @@
+microservices/carro/domain/CarroServiceImpl.class
+microservices/carro/CarroServer.class
+microservices/carro/domain/CarroService.class
+microservices/carro/controller/CarroController.class

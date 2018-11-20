@@ -1,0 +1,26 @@
+server:
+  port: ${PORT:8080}
+
+zuul:
+  routes:
+    venda:
+      path: /venda/**
+      serviceId: VENDA-SERVER
+    pessoa:
+      path: /carro/**
+      serviceId: CARRO-SERVER  
+
+---
+spring:
+  profiles: docker
+
+zuul:
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  routes:
+    venda:
+      path: /venda/**
+      url: http://venda:8084
+    pessoa:
+      path: /carro/**
+      url: http://carro:8083  
+  add-proxy-headers: true

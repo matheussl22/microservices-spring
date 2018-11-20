@@ -1,0 +1,76 @@
+version: '3.7'
+services:
+  config:
+    image: ${NAMESPACE}/config:${TAG}
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    networks:
+      - microservices
+
+  eureka:
+    image: ${NAMESPACE}/eureka:${TAG}
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - CONFIG_SERVER_URL=${CONFIG_SERVER_URL}
+    links:
+      - config
+    expose:
+      - "8761"
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices
+
+  venda:
+    image: ${NAMESPACE}/venda:${TAG}
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - CONFIG_SERVER_URL=${CONFIG_SERVER_URL}
+    links:
+      - config
+      - eureka
+    expose:
+      - "8084"
+    ports:
+      - 8084
+    networks:
+      - microservices
+
+  pessoa:
+    image: ${NAMESPACE}/carro:${TAG}
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - CONFIG_SERVER_URL=${CONFIG_SERVER_URL}
+    links:
+      - config
+      - eureka
+    expose:
+      - "8083"
+    ports:
+      - 8083
+    networks:
+      - microservices
+
+  zuul:
+    image: ${NAMESPACE}/zuul:${TAG}
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - CONFIG_SERVER_URL=${CONFIG_SERVER_URL}
+    links:
+      - config
+      - eureka
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+    name: localhost
